@@ -2,19 +2,19 @@ import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from 't
 import User from './user.entity';
 
 @Entity()
-export default class Task extends BaseEntity {
+export default class Documents extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
   @Column()
-  title!: string
+  number!: string
 
-  @Column({default: false})
-  completed!: boolean
+  @Column()
+  type!: string
   
   @Column({name: 'user_id'})
   userId!: number
   
-  @ManyToOne(() => User, user => user.tasks)
+  @ManyToOne(() => User, user => user.documents)
   user!: User
 }

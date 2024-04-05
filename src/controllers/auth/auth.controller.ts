@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 export default class AuthControoler {
     static async store (req: Request, res: Response){
-        const { name, email, password} = req.body;
+        const { name, email, password } = req.body;
 
         //Validação dos campos
         if(!name) return res.status(400).json({error: "Nome obrigatório!"});

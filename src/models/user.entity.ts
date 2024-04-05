@@ -1,5 +1,7 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import Token from './token.entity'
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import Token from './token.entity';
+import Task from './task.entity';
+import Document from './documents.entity';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -17,4 +19,10 @@ export default class User extends BaseEntity {
     
     @OneToMany(() => Token, token => token.user)
     tokens!: Token[]
+
+    @OneToMany(() => Task, task => task.user)
+    tasks!: Task[]
+
+    @OneToMany(() => Document, document => document.user)
+    documents!: Document[]
 }
