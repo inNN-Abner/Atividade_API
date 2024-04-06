@@ -1,7 +1,8 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import Token from './token.entity';
-import Task from './task.entity';
-import Document from './documents.entity';
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import Token from './token.entity'
+import Task from './task.entity'
+import Document from './documents.entity'
+import Telephone from './telephone.entity'
 
 @Entity()
 export default class User extends BaseEntity {
@@ -25,4 +26,7 @@ export default class User extends BaseEntity {
 
     @OneToMany(() => Document, document => document.user)
     documents!: Document[]
+
+    @OneToMany(() => Telephone, telephone => telephone.user)
+    telephones!: Telephone[]
 }

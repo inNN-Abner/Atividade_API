@@ -1,5 +1,5 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
-import User from './user.entity';
+import User from './user.entity'
 
 @Entity()
 export default class Token extends BaseEntity {

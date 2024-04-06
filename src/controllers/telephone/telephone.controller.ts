@@ -1,26 +1,26 @@
 import { Request, Response } from 'express'
-import Documents from '../../models/documents.entity'
+import Telephone from '../../models/telephone.entity'
 
-export default class DocumentsController {
+export default class TelephoneController {
 
   //C R I A R
   static async store (req: Request, res: Response) {
-    const { number, type } = req.body
+    const { operator, tel_number } = req.body
     const { userId } = req.headers
 
     if (!userId) return res.status(401).json({ error: 'Usuário não autenticado!' })
 
-    if (!number || !type) {
-      return res.status(400).json({ error: 'O título é obrigatório!' })
+    if (!operator || !tel_number) {
+      return res.status(400).json({ error: 'A operador e o número de telefone são obrigatórios!' })
     }
 
-    const documents = new Documents()
-    documents.number = number
-    documents.type = type
-    documents.userId = Number(userId)
-    await documents.save()
+    const telephone = new Telephone()
+    telephone.operator = operator
+    telephone.tel_number = tel_number
+    telephone.userId = Number(userId)
+    await telephone.save()
 
-    return res.status(201).json(documents)
+    return res.status(201).json(telephone)
   }
 
   //L I S T A R
@@ -29,8 +29,8 @@ export default class DocumentsController {
 
     if (!userId) return res.status(401).json({ error: 'Usuário não autenticado!' })
 
-    const documents = await Documents.find({where: { userId: Number(userId) }})
-    return res.json(documents)
+    const telephone = await Telephone.find({where: { userId: Number(userId) }})
+    return res.json(telephone)
   }
 
   //V I S U A L I Z A R
@@ -44,14 +44,14 @@ export default class DocumentsController {
 
     if (!userId) return res.status(401).json({ error: 'Usuário não autenticado!' })
 
-    const documents = await Documents.findOneBy({id: Number(id), userId: Number(userId)})
-    return res.json(documents)
+    const telephone = await Telephone.findOneBy({id: Number(id), userId: Number(userId)})
+    return res.json(telephone)
   }
   
   //A T U A L I Z A R
   static async update (req: Request, res: Response) {
     const { id } = req.params
-    const { number, type } = req.body
+    const { operator, tel_number } = req.body
     const { userId } = req.headers
 
     if(!id || isNaN(Number(id))) {
@@ -60,16 +60,16 @@ export default class DocumentsController {
 
     if (!userId) return res.status(401).json({ error: 'Usuário não autenticado!' })
 
-    const documents = await Documents.findOneBy({id: Number(id), userId: Number(userId)})
-    if (!documents) {
-      return res.status(404).json({ error: 'Documento não encontrado!' })
+    const telephone = await Telephone.findOneBy({id: Number(id), userId: Number(userId)})
+    if (!telephone) {
+      return res.status(404).json({ error: 'Número de telefone não encontrado!' })
     }
 
-    documents.type = type ?? documents.type
-    documents.type = (type === undefined) ? documents.type : type
-    await documents.save()
+    telephone.operator = operator ?? telephone.operator
+    telephone.tel_number = (tel_number === undefined) ? telephone.tel_number : tel_number
+    await telephone.save()
 
-    return res.json(documents)
+    return res.json(telephone)
   } 
 
   // D E L E T A R
@@ -83,12 +83,12 @@ export default class DocumentsController {
 
     if (!userId) return res.status(401).json({ error: 'Usuário não autenticado!' })
 
-    const documents = await Documents.findOneBy({id: Number(id), userId: Number(userId)})
-    if (!documents) {
-      return res.status(404).json({ error: 'Documento não encontrado!' })
+    const telephone = await Telephone.findOneBy({id: Number(id), userId: Number(userId)})
+    if (!telephone) {
+      return res.status(404).json({ error: 'Número de telefone não encontrado!' })
     }
 
-    await documents.remove()
+    await telephone.remove()
     return res.status(204).json()
   }
 }

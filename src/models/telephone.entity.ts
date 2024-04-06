@@ -2,19 +2,19 @@ import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from 't
 import User from './user.entity'
 
 @Entity()
-export default class Documents extends BaseEntity {
+export default class Telephone extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
   @Column()
-  number!: string
+  operator!: string
 
   @Column()
-  type!: string
+  tel_number!: string
   
   @Column({name: 'user_id'})
   userId!: number
   
-  @ManyToOne(() => User, user => user.documents)
+  @ManyToOne(() => User, user => user.telephones)
   user!: User
 }

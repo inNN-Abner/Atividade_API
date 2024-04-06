@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import User from '../../models/user.entity';
-import Token from '../../models/token.entity';
-import bcrypt from 'bcrypt';
+import { Request, Response } from 'express'
+import User from '../../models/user.entity'
+import Token from '../../models/token.entity'
+import bcrypt from 'bcrypt'
 
 export default class AuthControoler {
     static async store (req: Request, res: Response){
